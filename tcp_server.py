@@ -178,12 +178,10 @@ while(1):
             socket_file_descriptor.send("Password: \n".encode())
             user_password = socket_file_descriptor.recv(BUFFER).decode()
             print(user_password)
-            print(new_user)
-            print(USER_PASS[new_user])
-            print(USER_PASS[new_user].encode())
-            delHash = hashlib.sha1(user_password.encode()).hexdigest()
-            print(delHash)
-            if USER_PASS[new_user.rstrip()] in delHash:
+            print(USER_PASS)
+            delHash = hashlib.sha1(user_password.rstrip().encode()).hexdigest()
+
+            if user_password == USER_PASS[new_user]:
               print ("Valid password")
               break
             else:
