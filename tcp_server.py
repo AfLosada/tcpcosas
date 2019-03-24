@@ -62,15 +62,15 @@ def last(socket_fd, minutes):
 
   print ("done lasting")
   if int(minutes) > LAST_LIMIT:
-    socket_fd.send(" Number is over number limit")
+    socket_fd.send(" Number is over number limit".encode())
   else:
-    socket_fd.send(last_users + "\n")
+    socket_fd.send((last_users + "\n").encode())
 #for all the available sockets reading, broadcast the message to all the sockets except the server socket and the sending socket
 def broadcast(socket_fd, message):
   for socket in SOCKET_LIST:
     if socket != server_socket and socket != socket_fd:
       try:
-        socket.send(message.replace("broadcast"," "))
+        socket.send((message.replace("broadcast"," ")).encode())
       except:
         socket.close()
         SOCKET_LIST.remove(socket)
@@ -78,7 +78,7 @@ def broadcast(socket_fd, message):
 def send_one(string_list, sender):
   print ("send one")
   if string_list[1] in CONNECTED_U_SOCKETS.keys():
-    CONNECTED_U_SOCKETS[string_list[1]].send(sender + ":  " + " ".join(string_list[2:len(string_list)]))
+    CONNECTED_U_SOCKETS[string_list[1]].send(sender + ":  " + " ".join(string_list[2:len(string_list)]).encode())
     # print string_list[1]
     # if string_list[1] == user:
     #   print "user found"
@@ -93,7 +93,7 @@ def send_all(string_list, sender):
   print (message)
   for user in CONNECTED_U_SOCKETS.keys():
     if user in users:
-      CONNECTED_U_SOCKETS[user].send(sender + ": " + message)
+      CONNECTED_U_SOCKETS[user].send((sender + ": " + message).encode())
 # --------------------------- Server Code ----------------------
 
 #create an AF INET server socket (ie a socket that uses IPV4) with STREAM functionality
@@ -158,25 +158,25 @@ while(1):
           #check for valid user
           while invalid_user:
             print ("user?")
-            socket_file_descriptor.send("Username: \n")
-            user = socket_file_descriptor.recv(BUFFER)
+            socket_file_descriptor.send("Username: \n".encode())
+            user = socket_file_descriptor.recv(BUFFER).decode()
 
             if user.rstrip() in USER_PASS:
               print ("Valid User")
               new_user = user.rstrip()
               invalid_user = False
               if new_user in CONNECTED_USERS.values():
-                socket_file_descriptor.send("user " + new_user + " is already logged in, please use differente credentials \n")
+                socket_file_descriptor.send(("user " + new_user + " is already logged in, please use differente credentials \n").encode())
                 invalid_user = True
             else:
               print ("Invalid User")
-              socket_file_descriptor.send("Invalid Username, please reenter new username \n")
+              socket_file_descriptor.send("Invalid Username, please reenter new username \n".encode())
               invalid_user = True
               continue
           #check for valid password
           while wrong_password < 3:
-            socket_file_descriptor.send("Password: \n")
-            user_password = socket_file_descriptor.recv(BUFFER)
+            socket_file_descriptor.send("Password: \n".encode())
+            user_password = socket_file_descriptor.recv(BUFFER).decode()
 
             if hashlib.sha1(user_password.rstrip()).hexdigest() == USER_PASS[new_user.rstrip()]:
               print ("Valid password")
@@ -184,7 +184,7 @@ while(1):
             else:
               wrong_password = wrong_password + 1
               print ("Invalid Password, " + str(3 - wrong_password) + " attempts left")
-              socket_file_descriptor.send("Invalid Password, " + str(3 - wrong_password) + " attempts left\n")
+              socket_file_descriptor.send(("Invalid Password, " + str(3 - wrong_password) + " attempts left\n").encode())
               if(wrong_password >= 3):
                 BLOCKED_USERS[socket_file_descriptor.getpeername()[0]] = datetime.datetime.now()
                 socket_file_descriptor.close()
@@ -199,12 +199,12 @@ while(1):
           print ("valid user: " + new_user)
           CONNECTED_U_SOCKETS[new_user] = socket_file_descriptor
           CONNECTED_USERS[socket_file_descriptor.getpeername()] = new_user
-          socket_file_descriptor.send("Welcome to the Chatroom!\n")
+          socket_file_descriptor.send("Welcome to the Chatroom!\n".encode())
 
       else:
         try:
           # ------------------ Receiving Data from client sockets -----------------------
-          data = socket.recv(BUFFER)
+          data = socket.recv(BUFFER).decode()
           print ("received data: %s"%(data))
           if data:
             # logout command
@@ -238,7 +238,7 @@ while(1):
                 send_one(send_string, user)
 
             else:
-              socket.send("Invalid Command, please type another\n")
+              socket.send("Invalid Command, please type another\n".encode())
 
         except:
           broadcast(socket, "Client" + str(socket.getpeername()[0]) + " is offline or cannot connect")

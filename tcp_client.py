@@ -36,7 +36,7 @@ while(1):
     # -------------------- Incoming data from server, sending data to server ---------
     for socket in readable_sockets:
       if socket == client_socket:
-        data = client_socket.recv(BUFFER)
+        data = client_socket.recv(BUFFER).decode()
 
         #data received
         if data:
