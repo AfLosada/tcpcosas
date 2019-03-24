@@ -186,7 +186,7 @@ while(1):
             type(USER_PASS[new_user])
             type(user_password)
 
-            if "" + user_password == "" + USER_PASS[new_user]:
+            if "" + user_password.rstrip() == "" + USER_PASS[new_user]:
               print ("Valid password")
               break
             else:
