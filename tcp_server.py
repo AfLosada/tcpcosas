@@ -178,6 +178,7 @@ while(1):
             socket_file_descriptor.send("Password: \n".encode())
             user_password = socket_file_descriptor.recv(BUFFER).decode()
             print(user_password)
+            print(USER_PASS)
             print(USER_PASS[new_user])
             print( user_password == USER_PASS[new_user].rstrip())
             delHash = hashlib.sha1(user_password.rstrip().encode()).hexdigest()
