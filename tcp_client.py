@@ -32,9 +32,7 @@ while(1):
   try:
     socket_list = [sys.stdin, client_socket]
     print(socket_list.pop())
-    readable_sockets = select.select(socket_list)
-    writeable_sockets =[]
-    error_sockets = []
+    readable_sockets, writeable_sockets, error_sockets = select.select(socket_list,[],[])
     # -------------------- Incoming data from server, sending data to server ---------
     for socket in readable_sockets:
       if socket == client_socket:
