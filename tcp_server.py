@@ -251,9 +251,9 @@ while(1):
         except:
           broadcast(socket, "Client" + str(socket.getpeername()[0]) + " is offline or cannot connect")
           print ("Client" + str(socket.getpeername()[0]) + "is offline or cannot connect")
-          if socket.getpeername() in CONNECTED_USERS[socket.getpeername()]:
-            del CONNECTED_U_SOCKETS[CONNECTED_USERS[socket.getpeername()]]
-            del CONNECTED_USERS[socket.getpeername()[0]]
+          if "" + socket.getpeername() in CONNECTED_USERS["" + socket.getpeername()]:
+            del CONNECTED_U_SOCKETS[CONNECTED_USERS["" + socket.getpeername()]]
+            del CONNECTED_USERS["" + socket.getpeername()[0]]
           socket.close()
           SOCKET_LIST.remove(socket)
           continue
