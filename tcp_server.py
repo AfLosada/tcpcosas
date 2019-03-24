@@ -180,7 +180,7 @@ while(1):
             print(user_password)
             print(USER_PASS[new_user])
             print( user_password == USER_PASS[new_user].rstrip())
-            delHash = hashlib.sha1(user_password.rstrip().hexdigest())
+            delHash = hashlib.sha1(user_password.rstrip().encode()).hexdigest()
             print(delHash)
 
             if "" + user_password == "" + USER_PASS[new_user]:
