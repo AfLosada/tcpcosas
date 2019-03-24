@@ -177,6 +177,7 @@ while(1):
           while wrong_password < 3:
             socket_file_descriptor.send("Password: \n".encode())
             user_password = socket_file_descriptor.recv(BUFFER).decode()
+            print(user_password)
 
             if hashlib.sha1(user_password.rstrip().encode()).hexdigest() == USER_PASS[new_user.rstrip()].encode():
               print ("Valid password")
