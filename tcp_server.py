@@ -180,8 +180,8 @@ while(1):
             print(user_password)
             print(new_user)
             print(USER_PASS[new_user])
-            delHash = hashlib.sha1(user_password.rstrip().encode()).hexdigest()
-            print(delHash)
+            delHash = hashlib.sha1(user_password.encode()).hexdigest()
+            print(delHash.decode())
             if delHash == USER_PASS[new_user.rstrip()]:
               print ("Valid password")
               break
