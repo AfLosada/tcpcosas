@@ -57,7 +57,7 @@ while(1):
           sys.exit()
       else:
         message = sys.stdin.readline()
-        client_socket.send(message)
+        client_socket.send(message.encode())
         if authenticated:
           sys.stdout.write('Command: ')
           sys.stdout.flush()
@@ -65,4 +65,4 @@ while(1):
 
   except KeyboardInterrupt:
     print ("CTRL + C issued, client logging out----")
-    client_socket.send("logout\n")
+    client_socket.send("logout\n".encode())
