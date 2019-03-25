@@ -25,10 +25,6 @@ while True:
         #Le cambio el tamaño al video para arreglar los problemas del buffer
         img = cv2.resize(img, (360,640), interpolation=cv2.INTER_AREA)
         print (img)
-        print ("Tipo img: ",type(img))
-        print ("Grandezza img",img.shape)
-        print ("Tipo di dato img: ",img.dtype)
-        print ("Numero di elementi: ",img.size)
         #Guardo un array de bytes para enviarlo por el socket
         data = img.tostring()
         print(len(data))
