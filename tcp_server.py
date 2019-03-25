@@ -27,8 +27,10 @@ PORT = int(sys.argv[1])
 #Leer las claves y los usuarios, la idea es guardar claves y usuarios manualmente
 user_pass = open("user_pass.txt")
 for line in user_pass:
+  print(line)
   user_pass = line.split(',')
-  USER_PASS[user_pass[0]] = user_pass[1].rstrip()
+  print(user_pass)
+  USER_PASS["" + line[0]] = line[1]
 #Es una funcion para facilitar enviarle un mensaje al cliente conectado
 def send_one(string_list, sender):
   print ("send one")
@@ -154,7 +156,7 @@ while(1):
 
       else:
         try:
-          #Este es el loop que recibe la información del cliente, en este caso lo único que hace es enviar o logearse out
+          #Este es el loop que recibe la información del cliente, en este caso lo único que hace es enviar o
           data = socket.recv(BUFFER).decode()
           print ("received data: %s"%(data))
           if data:
@@ -187,6 +189,8 @@ while(1):
           socket.close()
           SOCKET_LIST.remove(socket)
           continue
+
+  #managing keyboard interrupt (ctrl + c)
   except KeyboardInterrupt:
     print (" , CTRL + C command issued, server logging out ----------")
     server_socket.close()
