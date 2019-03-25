@@ -1,9 +1,9 @@
 import socket, cv2, numpy
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
-server_socket.bind(('192.168.56.1',1070))  
+server_socket.bind(('54.174.94.105',1070))  
 server_socket.listen(5)
-capture = cv2.VideoCapture('VideoFinal.mp4')
+capture = cv2.VideoCapture('Man.mp4')
 capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 capture.set(cv2.CAP_PROP_FRAME_HEIGHT,360)
 
@@ -14,7 +14,7 @@ while True:
         client_socket, address = server_socket.accept()
         print ("Open socket whit: " , address)
     ret, img = capture.read()
-    if(img == None):
+    if(img.all() != None):
         ret = capture.set(3,640)
         print("Se puede cambiar resW:" ,ret)
         ret = capture.set(4,360)

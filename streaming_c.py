@@ -6,7 +6,7 @@ client_socket.connect(('192.168.56.1',1070))
 
 while True:
     data=client_socket.recv(230400)
-    if data.decode() == "GG":
+    if data == "GG":
         break
     else:
         print("Antes de recibir la info")
