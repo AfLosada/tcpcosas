@@ -2,7 +2,7 @@
 import socket, cv2, numpy
 #Lo primero que hago es hacer la conexión al servidor, tiene la ip de la maquina virtual de aws que está corriendo
 client_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-client_socket.connect(('3.87.12.93',1070))
+client_socket.connect(('192.168.56.1',1070))
 
 while True:
     data=client_socket.recv(230400)
