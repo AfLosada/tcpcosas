@@ -5,11 +5,11 @@ client_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 client_socket.connect(('3.87.12.93',1070))
 
 while True:
-    data=client_socket.recv(230400)
+    data=client_socket.recv(4096000)
 
     if data == "GG":
         break
-    elif len(data) != 230400:
+    elif len(data) != 4096000:
         client_socket.send("continue".encode())
     else:
         #Leo la imagen y como se su tamaño la transformo en la imagen original
@@ -18,9 +18,6 @@ while True:
         img = cv2.imdecode(a1D, 1)
         print (img)
         print ("Tipo : ",type(img))
-        print ("Tamno img",img.shape)
-        print ("Tipo de dato img: ",img.dtype)
-        print( "Tamaño img:", img.size)
         print("HOLA")
         #Creo la ventana que va a reproducir el video y lo reproduzco
         cv2.namedWindow("imagen",cv2.WINDOW_NORMAL)
