@@ -14,7 +14,7 @@ while True:
         client_socket, address = server_socket.accept()
         print ("Open socket whit: " , address)
     ret, img = capture.read()
-    if(img.size > 0):
+    if(len(img) > 0):
         ret = capture.set(3,640)
         print("Se puede cambiar resW:" ,ret)
         ret = capture.set(4,360)
